@@ -1,0 +1,29 @@
+{
+  "name": "vagabond-vtt-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frayfray248/vagabond-vtt-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/frayfray248/vagabond-vtt-system/issues"
+  },
+  "homepage": "https://github.com/frayfray248/vagabond-vtt-system#readme",
+  "dependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  },
+  "devDependencies": {
+    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main"
+  }
+}
