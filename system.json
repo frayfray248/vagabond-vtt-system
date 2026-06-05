@@ -1,0 +1,35 @@
+{
+  "id": "vagabond-vtt-system",
+  "title": "Vagabond Pulp Fantasy Roleplaying Game",
+  "description": "A game system for Vagabond Pulp Fantasy Roleplaying Game",
+  "authors": [
+    {
+      "name": "frayfray248"
+    }
+  ],
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/vagabond-vtt-system/assets/anvil-impact.png",
+      "thumbnail": "systems/vagabond-vtt-system/assets/anvil-impact.png"
+    }
+  ],
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": 14,
+    "verified": "14"
+  },
+  "esmodules": ["main.js"],
+  "styles": ["styles/style.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "background": "systems/vagabond-vtt-system/assets/anvil-impact.png"
+}
