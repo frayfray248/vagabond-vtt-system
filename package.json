@@ -24,6 +24,8 @@
     "vite": "^8.0.16"
   },
   "devDependencies": {
-    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main"
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
+    "svelte": "^5.56.2"
   }
 }

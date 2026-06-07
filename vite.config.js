@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import path from "path";
 import fs from "fs";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 
 const copyFiles = [
     "system.json",
@@ -8,7 +9,8 @@ const copyFiles = [
 
 const copyDirectories = [
     "styles",
-    "lang"
+    "lang",
+    "templates"
 ]
 
 const copyFilesPlugin = {
@@ -33,7 +35,7 @@ const copyFilesPlugin = {
 }
 
 export default defineConfig({
-    plugins: [copyFilesPlugin],
+    plugins: [copyFilesPlugin, svelte()],
     root: "src",
     base: "/systems/vagabond-vtt-system/",
     resolve: {

@@ -9,9 +9,9 @@
     // See also https://aka.ms/tsconfig/module
     //"module": "esnext",
     "target": "esnext",
-    "types": ["fvtt-types"],
+    "types": ["fvtt-types", "svelte"],
     // For nodejs:
-    // "lib": ["esnext"],
+    "lib": ["DOM", "ES6", "ES2017", "ES2018"],
     // "types": ["node"],
     // and npm install -D @types/node
     "moduleResolution": "bundler",
