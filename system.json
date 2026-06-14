@@ -21,6 +21,24 @@
   },
   "esmodules": ["main.js"],
   "styles": ["styles/style.css"],
+  "documentTypes": {
+    "Actor": {
+        "hero": {},
+        "nonhero": {}
+    },
+    "Item": {
+        "ability": {},
+        "action": {},
+        "alchemicalItem": {},
+        "ancestry": {},
+        "armor": {},
+        "heroClass": {},
+        "inventoryItem": {},
+        "spell": {},
+        "status": {},
+        "weapon": {}
+    }
+  },
   "languages": [
     {
       "lang": "en",
