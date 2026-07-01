@@ -2,13 +2,13 @@ import { defineConfig } from "vite";
 import path from "path";
 import fs from "fs";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import tailwindcss from '@tailwindcss/vite'
 
 const copyFiles = [
     "system.json",
 ]
 
 const copyDirectories = [
-    "styles",
     "lang",
     "templates"
 ]
@@ -35,7 +35,9 @@ const copyFilesPlugin = {
 }
 
 export default defineConfig({
-    plugins: [copyFilesPlugin, svelte()],
+    plugins: [copyFilesPlugin, svelte(), tailwindcss(
+        
+    )],
     root: "src",
     base: "/systems/vagabond-vtt-system/",
     resolve: {
@@ -48,6 +50,11 @@ export default defineConfig({
         outDir: "../dist",
         emptyOutDir: true,
         sourcemap: true,
+        minify: "terser",
+        terserOptions: {
+            keep_classnames: true,
+            keep_fnames: true
+        },
         lib: {
             entry: path.resolve(__dirname, "src/main.ts"),
             name: "vagabond-vtt-system",
@@ -60,7 +67,7 @@ export default defineConfig({
             output: {
                 assetFileNames: (assetInfo) => {
                     console.log(assetInfo);
-                    if (assetInfo.names[0] === 'vagabond-vtt-system.css') return 'style.css';
+                    if (assetInfo.names[0] === 'vagabond-vtt-system.css') return 'styles/style.css';
                     return assetInfo.names[0]
                 }
             }
