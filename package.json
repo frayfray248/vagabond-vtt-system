@@ -20,12 +20,15 @@
   },
   "homepage": "https://github.com/frayfray248/vagabond-vtt-system#readme",
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.2",
+    "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
-    "svelte": "^5.56.2"
+    "svelte": "^5.56.2",
+    "terser": "^5.48.0"
   }
 }

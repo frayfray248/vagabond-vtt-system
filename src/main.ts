@@ -1,6 +1,7 @@
 import SystemActor from "./module/actor/document";
 import HeroDataModel from "./module/actor/Hero/model";
 import NonheroDataModel from "./module/actor/Nonhero/model";
+import { SystemActorSheet } from "./module/actor/sheet";
 import SystemItem from "./module/item/document";
 import AbilityDataModel from "./module/item/Ability/model";
 import ActionDataModel from "./module/item/Action/model";
@@ -12,16 +13,20 @@ import InventoryItemDataModel from "./module/item/InventoryItem/model";
 import WeaponDataModel from "./module/item/InventoryItem/Weapon/model";
 import ArmorDataModel from "./module/item/InventoryItem/Armor/model";
 import AlchemicalItemDataModel from "./module/item/InventoryItem/AlchemicalItem/model";
+import { VAGABOND_VTT_SYSTEM_CONFIG } from "./config";
+import { HeroSheet } from "./module/actor/Hero/sheet";
+import "./styles/style.css";
 
 
 Hooks.once("init", () => {
 
     console.log("Vagabond VTT System | Initializing Vagabond VTT System");
 
+    CONFIG.VAGABOND_VTT_SYSTEM_CONFIG = VAGABOND_VTT_SYSTEM_CONFIG;
 
     console.log("Vagabond VTT System | Registering System Actors");
     CONFIG.Actor.documentClass = SystemActor;
-    
+
     CONFIG.Actor.dataModels.hero = HeroDataModel;
     CONFIG.Actor.dataModels.nonhero = NonheroDataModel;
 
@@ -45,5 +50,13 @@ Hooks.once("init", () => {
 
     console.log(`Vagabond VTT System | Registered Items: ${Object.keys(CONFIG.Item.dataModels).join(", ")}`);
 
-    
+    console.log("Vagabond VTT System | Registering System Actor Sheets");
+
+    const { Actors } = foundry.documents.collections;
+    const { ActorSheet } = foundry.appv1.sheets;
+
+    Actors.unregisterSheet("core", ActorSheet);
+    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemActorSheet, { makeDefault: true });
+    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, HeroSheet, { makeDefault: true });
+
 })
