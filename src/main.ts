@@ -1,6 +1,7 @@
 import SystemActor from "./module/actor/document";
 import HeroDataModel from "./module/actor/Hero/model";
 import NonheroDataModel from "./module/actor/Nonhero/model";
+import { NonheroSheet } from "./module/actor/Nonhero/sheet";
 import { SystemActorSheet } from "./module/actor/sheet";
 import SystemItem from "./module/item/document";
 import AbilityDataModel from "./module/item/Ability/model";
@@ -59,6 +60,10 @@ Hooks.once("init", () => {
     Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemActorSheet, { makeDefault: false });
     Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, HeroSheet, {
         types: ["hero"],
+        makeDefault: true,
+    });
+    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, NonheroSheet, {
+        types: ["nonhero"],
         makeDefault: true,
     });
 
