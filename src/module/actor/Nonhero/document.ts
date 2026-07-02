@@ -1,7 +1,7 @@
 import SystemActor from "../document";
-import HeroDataModel, { HeroSystemData } from "./model";
+import NonheroDataModel from "./model";
 
-export default class Hero extends SystemActor<"hero"> {
+export default class Nonhero extends SystemActor<"nonhero"> {
 
     prepareDerivedData(): void {
         super.prepareDerivedData();

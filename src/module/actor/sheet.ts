@@ -4,7 +4,7 @@ import SystemActorDataModel, { SystemActorDataSchema, SystemActorSystemData } fr
 
 export class SystemActorSheet<
     SheetData,
-    SystemActorType extends SystemActor<SystemActorDataModel<SystemActorDataSchema, SystemActorSystemData>>,
+    SystemActorType extends SystemActor,
 
 > extends foundry.appv1.sheets.ActorSheet {
 
