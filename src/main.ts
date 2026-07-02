@@ -56,7 +56,10 @@ Hooks.once("init", () => {
     const { ActorSheet } = foundry.appv1.sheets;
 
     Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemActorSheet, { makeDefault: true });
-    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, HeroSheet, { makeDefault: true });
+    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemActorSheet, { makeDefault: false });
+    Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, HeroSheet, {
+        types: ["hero"],
+        makeDefault: true,
+    });
 
 })
