@@ -1,3 +1,5 @@
+import SystemBaseDataModel from "@module/model";
+
 const { NumberField, StringField, SchemaField, ArrayField } = foundry.data.fields;
 
 export enum ACTOR_SIZE {
@@ -95,10 +97,10 @@ export type SystemActorSystemData = {
     statuses: ACTOR_STATUS[];
 }
 
-export default class SystemActorDataModel<
+export default abstract class SystemActorDataModel<
     Schema extends SystemActorDataSchema,
     SystemDataType extends SystemActorSystemData
-> extends foundry.abstract.TypeDataModel<Schema, any> {
+> extends SystemBaseDataModel<Schema, SystemDataType> {
     static defineSchema(): SystemActorDataSchema {
         return {
             size: new StringField<{}, {}, ACTOR_SIZE>({
@@ -178,13 +180,5 @@ export default class SystemActorDataModel<
 
     prepareDerivedData(): void {
         this.hp.current = Math.min(this.hp.current, this.hp.max);
-    }
-
-    toPlainObject(): SystemDataType {
-        const plainObject: unknown = {
-            ...this,
-        };
-
-        return plainObject as SystemDataType;
     }
 }
