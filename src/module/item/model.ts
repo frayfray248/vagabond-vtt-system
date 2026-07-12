@@ -1,4 +1,6 @@
-export default class SystemItemDataModel extends foundry.abstract.TypeDataModel<{}, any> {
+import SystemBaseDataModel from "@/module/model";
+
+export default class SystemItemDataModel extends SystemBaseDataModel<{}, {}> {
     static defineSchema() {
         return {
         }

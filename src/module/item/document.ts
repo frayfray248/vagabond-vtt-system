@@ -1,5 +1,12 @@
-type SystemSubType = "base" | foundry.abstract.Document.ModuleSubType;
+export default class SystemItem<SubType extends Item.SubType = Item.SubType> extends Item<SubType> {
 
-export default class SystemItem<SubType extends SystemSubType = SystemSubType> extends Item<SubType> {
+    toPlainObject() {
+        const system = this.system
+        return {
+            system: system.toPlainObject() as ReturnType<typeof system["toPlainObject"]>,
+            name: this.name,
+            img: this.img,
+        }
+    }
     
 }
