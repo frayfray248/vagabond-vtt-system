@@ -4,8 +4,9 @@ import { SystemActorSheet } from "../sheet";
 import { HeroSystemData } from "./model";
 
 export type HeroSheetData = {
-    name: string;
+    name: string
     system: HeroSystemData
+    img: string
 }
 
 export class HeroSheet extends SystemActorSheet<HeroSheetData, Hero> {
@@ -17,7 +18,7 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, Hero> {
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            template: "systems/vagabond-vtt-system/templates/sheet.hbs",
+            
             types: ["hero"],
         })
     }

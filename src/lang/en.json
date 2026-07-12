@@ -1,3 +1,74 @@
 {
-    
+    "VAGABOND": {
+        "Stats": {
+            "Might": {
+                "Short": "MIT",
+                "Long": "Might"
+            },
+            "Dexterity": {
+                "Short": "DEX",
+                "Long": "Dexterity"
+            },
+            "Awareness": {
+                "Short": "AWR",
+                "Long": "Awareness"
+            },
+            "Reason": {
+                "Short": "RSN",
+                "Long": "Reason"
+            },
+            "Presence": {
+                "Short": "PRS",
+                "Long": "Presence"
+            },
+            "Luck": {
+                "Short": "LCK",
+                "Long": "Luck"
+            }
+        },
+        "Skills": {
+            "Arcana": {
+                "Long": "Arcana"
+            },
+            "Brawl": {
+                "Long": "Brawl"
+            },
+            "Craft": {
+                "Long": "Craft"
+            },
+            "Detect": {
+                "Long": "Detect"
+            },
+            "Finesse": {
+                "Long": "Finesse"
+            },
+            "Influence": {
+                "Long": "Influence"
+            },
+            "Leadership": {
+                "Long": "Leadership"
+            },
+            "Medicine": {
+                "Long": "Medicine"
+            },
+            "Mysticism": {
+                "Long": "Mysticism"
+            },
+            "Performance": {
+                "Long": "Performance"
+            },
+            "Melee": {
+                "Long": "Melee"
+            },
+            "Ranged": {
+                "Long": "Ranged"
+            },
+            "Sneak": {
+                "Long": "Sneak"
+            },
+            "Survival": {
+                "Long": "Survival"
+            }
+        }
+    }
 }

@@ -42,8 +42,12 @@ export default defineConfig({
     base: "/systems/vagabond-vtt-system/",
     resolve: {
         alias: {
+            "@": path.resolve(__dirname, "./src"),
             "@client": path.resolve(__dirname, "foundry/client"),
             "@common": path.resolve(__dirname, "foundry/common"),
+            "@/*": path.resolve(__dirname, "src/*"),
+            "@ui": path.resolve(__dirname, "src/ui"),
+            "@module": path.resolve(__dirname, "src/module"),
         }
     },
     build: {
