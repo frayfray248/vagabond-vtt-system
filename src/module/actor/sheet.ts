@@ -18,6 +18,9 @@ export class SystemActorSheet<
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             template: "systems/vagabond-vtt-system/templates/sheet.hbs",
+            height: 600,
+            width: 800,
+            resizable: true,
         })
     }
 
@@ -27,6 +30,7 @@ export class SystemActorSheet<
 
     getData(): ReturnType<SystemActorType["toPlainObject"]> {
         const actor = this.getDocument();
+        
         return actor.toPlainObject() as ReturnType<SystemActorType["toPlainObject"]>;
     }
 
@@ -35,7 +39,8 @@ export class SystemActorSheet<
 
         if (!this.App) return;
 
-        html.find(".window-content").removeClass("window-content").addClass("tw:bg-gray-900 tw:p-4 tw:rounded-lg tw:shadow-md tw:overflow-y-auto");
+        html.find(".window-content")
+        .css({ padding: 0, background: "#000000" })
 
         mount(this.App, {
             target: html.find("form")[0],
@@ -47,6 +52,7 @@ export class SystemActorSheet<
     }
 
     async _injectHTML(html: JQuery) {
+        // html here is the whole sheet window
 
         super._injectHTML(html);
         this.mountApp(html);
@@ -54,9 +60,12 @@ export class SystemActorSheet<
     }
 
     async _replaceHTML(element: JQuery, html: JQuery) {
+        // html here is just the handlebars template content for some reason.
+        // element is the whole sheet window
 
         super._replaceHTML(element, html);
-        this.mountApp(html);
+        this.mountApp(element);
+        
     }
 
 }

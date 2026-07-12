@@ -9,6 +9,7 @@ SystemActorType extends Actor.SubType = Actor.SubType,
         return {
             system: system.toPlainObject() as ReturnType<typeof system["toPlainObject"]>,
             name: this.name,
+            img: this.img,
         }
     }
 

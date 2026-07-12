@@ -17,7 +17,6 @@ export class NonheroSheet extends SystemActorSheet<NonheroSheetData, Nonhero> {
 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            template: "systems/vagabond-vtt-system/templates/sheet.hbs",
             types: ["nonhero"],
         })
     }
