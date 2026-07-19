@@ -1,6 +1,6 @@
 import SystemActorDataModel, { SystemActorDataSchema, SystemActorSystemData } from "../model";
 
-const { SchemaField, NumberField } = foundry.data.fields;
+const { SchemaField, NumberField, BooleanField } = foundry.data.fields;
 
 export enum HERO_STAT {
     MIGHT = "might",
@@ -28,12 +28,34 @@ export enum HERO_SKILL {
     RANGED = "ranged",
 }
 
+export const HERO_SKILL_KEY_STAT_MAP: Record<HERO_SKILL, HERO_STAT> = {
+    [HERO_SKILL.ARCANA]: HERO_STAT.REASON,
+    [HERO_SKILL.BRAWL]: HERO_STAT.MIGHT,
+    [HERO_SKILL.CRAFT]: HERO_STAT.REASON,
+    [HERO_SKILL.DETECT]: HERO_STAT.AWARENESS,
+    [HERO_SKILL.FINESSE]: HERO_STAT.DEXTERITY,
+    [HERO_SKILL.INFLUENCE]: HERO_STAT.PRESENCE,
+    [HERO_SKILL.LEADERSHIP]: HERO_STAT.PRESENCE,
+    [HERO_SKILL.MEDICINE]: HERO_STAT.REASON,
+    [HERO_SKILL.MYSTICISM]: HERO_STAT.AWARENESS,
+    [HERO_SKILL.PERFORMANCE]: HERO_STAT.PRESENCE,
+    [HERO_SKILL.SNEAK]: HERO_STAT.DEXTERITY,
+    [HERO_SKILL.SURVIVAL]: HERO_STAT.AWARENESS,
+    [HERO_SKILL.MELEE]: HERO_STAT.MIGHT,
+    [HERO_SKILL.RANGED]: HERO_STAT.DEXTERITY,
+}
+
 type StatFields = {
     [K in HERO_STAT]: InstanceType<typeof NumberField<{}, {}, number>>;
 };
 
+export interface SkillDataSchema extends foundry.data.fields.DataSchema {
+    value: InstanceType<typeof NumberField<{}, {}, number>>;
+    trained: InstanceType<typeof BooleanField>;
+}
+
 type SkillFields = {
-    [K in HERO_SKILL]: InstanceType<typeof NumberField<{}, {}, number>>;
+    [K in HERO_SKILL]: InstanceType<typeof SchemaField<SkillDataSchema>>;
 };
 
 export interface ManaDataSchema extends foundry.data.fields.DataSchema {
@@ -64,7 +86,10 @@ export interface HeroSystemData extends SystemActorSystemData {
         [K in HERO_STAT]: number;
     };
     skills: {
-        [K in HERO_SKILL]: number;
+        [K in HERO_SKILL]: {
+            value: number;
+            trained: boolean;
+        };
     };
     mana: {
         current: number;
@@ -100,7 +125,10 @@ export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, 
             ),
             skills: new SchemaField(
                 Object.values(HERO_SKILL).reduce((acc, skill) => {
-                    acc[skill] = new NumberField({ required: true, initial: 0, min: 0 });
+                    acc[skill] = new SchemaField<SkillDataSchema>({
+                        value: new NumberField({ required: true, initial: 0, min: 0 }),
+                        trained: new BooleanField({ required: true, initial: false }),
+                    });
                     return acc;
                 }, {} as SkillFields)
             ),
@@ -154,16 +182,28 @@ export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, 
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        // saves
         this.endure = 20 - (this.stats.might * 2);
         this.reflex = 20 - (this.stats.dexterity + this.stats.awareness);
         this.will = 20 - (this.stats.reason + this.stats.presence);
+
         this.maxSlots = 8 + this.stats.might;
 
+        // speed
         const dexMod = Math.floor((this.stats.dexterity - 2) / 2);
         this.speed.normal = 25 + (dexMod * 5);
         this.speed.crawl = 75 + (dexMod * 15);
         this.speed.travel = 5 + dexMod;
 
+        // mana
         this.mana.current = Math.min(this.mana.current, this.mana.max);
+
+        // skills
+
+        for (const skill of Object.values(HERO_SKILL)) {
+            const keyStat = HERO_SKILL_KEY_STAT_MAP[skill];
+            const keyStatValue = this.stats[keyStat];
+            this.skills[skill].value = 20 - (this.skills[skill].trained ? keyStatValue * 2 : keyStatValue);
+        }
     }
 }
