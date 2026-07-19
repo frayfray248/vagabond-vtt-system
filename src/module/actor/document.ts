@@ -1,5 +1,3 @@
-import SystemActorDataModel, { SystemActorDataSchema, SystemActorSystemData } from "./model";
-
 export default class SystemActor<
 SystemActorType extends Actor.SubType = Actor.SubType,
 > extends Actor<SystemActorType> {
