@@ -1,5 +1,4 @@
 import App from "./sheet.svelte";
-import Nonhero from "./document";
 import { SystemActorSheet } from "../sheet";
 import { NonHeroSystemData } from "./model";
 
@@ -8,9 +7,11 @@ export type NonheroSheetData = {
     system: NonHeroSystemData;
 }
 
-export class NonheroSheet extends SystemActorSheet<NonheroSheetData, Nonhero> {
+import SystemActor from "@/module/actor/document";
 
-    constructor(data: Nonhero, options: ActorSheet.Options) {
+export class NonheroSheet extends SystemActorSheet<NonheroSheetData, "nonhero"> {
+
+    constructor(data: SystemActor<"nonhero">, options: ActorSheet.Options) {
         super(data, options);
         this.App = App;
     }

@@ -1,7 +1,7 @@
 import App from "./sheet.svelte";
-import Hero from "./document";
 import { SystemActorSheet } from "../sheet";
 import { HeroSystemData } from "./model";
+import SystemActor from "@/module/actor/document";
 
 export type HeroSheetData = {
     name: string
@@ -9,9 +9,9 @@ export type HeroSheetData = {
     img: string
 }
 
-export class HeroSheet extends SystemActorSheet<HeroSheetData, Hero> {
+export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
 
-    constructor(data: Hero, options: ActorSheet.Options) {
+    constructor(data: SystemActor<"hero">, options: ActorSheet.Options) {
         super(data, options);
         this.App = App;
     }

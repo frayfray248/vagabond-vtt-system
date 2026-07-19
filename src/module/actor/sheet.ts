@@ -1,16 +1,14 @@
 import { Component, mount } from "svelte";
 import SystemActor from "./document";
-import SystemActorDataModel, { SystemActorDataSchema, SystemActorSystemData } from "./model";
 
 export class SystemActorSheet<
     SheetData,
-    SystemActorType extends SystemActor,
-
+    SubType extends Actor.SubType = Actor.SubType,
 > extends foundry.appv1.sheets.ActorSheet {
 
     App: Component<{ sheetData: SheetData }> | null
 
-    constructor(data: SystemActorType, options: ActorSheet.Options) {
+    constructor(data: SystemActor<SubType>, options: ActorSheet.Options) {
         super(data, options);
         this.App = null;
     }
@@ -24,14 +22,14 @@ export class SystemActorSheet<
         })
     }
 
-    getDocument (): SystemActorType {
-        return this.document as SystemActorType;
+    getDocument (): SystemActor<SubType> {
+        return this.document as SystemActor<SubType>;
     }
 
-    getData(): ReturnType<SystemActorType["toPlainObject"]> {
+    getData(): ReturnType<SystemActor<SubType>["toPlainObject"]> {
         const actor = this.getDocument();
         
-        return actor.toPlainObject() as ReturnType<SystemActorType["toPlainObject"]>;
+        return actor.toPlainObject() as ReturnType<SystemActor<SubType>["toPlainObject"]>;
     }
 
 
