@@ -2,12 +2,14 @@
     export let name: string;
     export let value: string | number;
     export let type: "text" | "number" = "text";
-    export let label: string;
+    export let label: string | undefined = undefined;
     export let placeholder: string;
 </script>
 
 <div class="tw:flex tw:flex-col tw:p-1">
-    <label for={name} class="tw:text-xs tw:m-0">{label}</label>
+    {#if label}
+        <label for={name} class="tw:text-xs tw:m-0">{label}</label>
+    {/if}
     <input
         id={name}
         {name}
