@@ -29,12 +29,12 @@
             </FlexBox>
         </FlexBox>
         <div class="tw:grid tw:grid-cols-6 tw:gap-1">
-            <StatBox name="Might" value={sheetData.system.stats.might} />
-            <StatBox name="Dexterity" value={sheetData.system.stats.dexterity} />
-            <StatBox name="Awareness" value={sheetData.system.stats.awareness} />
-            <StatBox name="Reason" value={sheetData.system.stats.reason} />
-            <StatBox name="Presence" value={sheetData.system.stats.presence} />
-            <StatBox name="Luck" value={sheetData.system.stats.luck} />
+            <StatBox name="might" value={sheetData.system.stats.might} />
+            <StatBox name="dexterity" value={sheetData.system.stats.dexterity} />
+            <StatBox name="awareness" value={sheetData.system.stats.awareness} />
+            <StatBox name="reason" value={sheetData.system.stats.reason} />
+            <StatBox name="presence" value={sheetData.system.stats.presence} />
+            <StatBox name="luck" value={sheetData.system.stats.luck} />
         </div>
     </FlexBox>
 </SheetBox>
