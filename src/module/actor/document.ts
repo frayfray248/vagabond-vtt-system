@@ -1,3 +1,5 @@
+import { SystemActorSystemData } from "@/module/actor/model";
+
 export default class SystemActor<
 SystemActorType extends Actor.SubType = Actor.SubType,
 > extends Actor<SystemActorType> {
@@ -11,6 +13,9 @@ SystemActorType extends Actor.SubType = Actor.SubType,
         }
     }
 
-    
+    getRollData() {
+
+        return this.system.toPlainObject() as SystemActorSystemData
+    }
 
 }
