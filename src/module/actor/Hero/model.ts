@@ -180,6 +180,8 @@ export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, 
     }
 
     prepareDerivedData(): void {
+        // Compute HP max first so parent clamp uses the correct ceiling.
+        this.hp.max = this.stats.might * this.level;
         super.prepareDerivedData();
 
         // saves
@@ -199,7 +201,6 @@ export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, 
         this.mana.current = Math.min(this.mana.current, this.mana.max);
 
         // skills
-
         for (const skill of Object.values(HERO_SKILL)) {
             const keyStat = HERO_SKILL_KEY_STAT_MAP[skill];
             const keyStatValue = this.stats[keyStat];
