@@ -36,7 +36,8 @@
             >{system.hp.current} / {system.hp.max}</span
         >
         <span
-            class="edit tw:ml-2 fa fa-pencil tw:cursor-pointer"
+            class="tw:ml-2 fa fa-pencil tw:cursor-pointer"
+            data-action="edit"
             data-edit-target="hp"
         ></span>
     </HeroCombatPanelSection>
@@ -45,7 +46,8 @@
             {system.mana.current} / {system.mana.max}
         </span>
         <span
-            class="edit tw:ml-2 fa fa-pencil tw:cursor-pointer"
+            class="tw:ml-2 fa fa-pencil tw:cursor-pointer"
+            data-action="edit"
             data-edit-target="mana"
         ></span>
     </HeroCombatPanelSection>
@@ -71,7 +73,7 @@
     <HeroCombatPanelSection title="Luck" withBorder={false}>
         <Grid className="tw:grid-cols-3 tw:text-center tw:place-items-center">
             <div><Button
-                className="incdec"
+            data-action="incdec"
                 data-incdec="-1"
                 data-incdec-target="luckPool">-1</Button
             ></div>
@@ -79,7 +81,7 @@
                 {system.luckPool}
             </p>
             <div><Button
-                className="incdec"
+                data-action="incdec"
                 data-incdec="+1"
                 data-incdec-target="luckPool">+1</Button
             ></div>

@@ -2,42 +2,43 @@ import App from "./sheet.svelte";
 import { SystemActorSheet } from "../sheet";
 import { HeroSystemData } from "./model";
 import SystemActor from "@/module/actor/document";
-import { mount } from "svelte";
+import { Component, mount } from "svelte";
 import { renderDialog, renderNumberEditor } from "@/lib/utils";
 import NumberEditorDialog from "@/ui/components/Actor/Hero/dialogs/NumberEditorDialog.svelte";
+import SystemItem from "@/module/item/document";
 
 export type HeroSheetData = {
     name: string
     system: HeroSystemData
-    img: string
+    img: string,
 }
 
 export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
 
-    constructor(data: SystemActor<"hero">, options: ActorSheet.Options) {
-        super(data, options);
-        this.App = App;
-    }
+    svelteApp: Component<{ sheetData: HeroSheetData }> | null = App
 
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
+    static DEFAULT_OPTIONS = {
+        ...super.DEFAULT_OPTIONS,
+        actions: {
+            roll: this.#roll,
+            edit: this.#edit,
+            incdec: this.#incDec,
+            piptrack: this.onPipTrackChange,
+        }
+    };
 
-            types: ["hero"],
-        })
-    }
+    // /** @override */
+    // activateListeners(html: JQuery): void {
+    //     super.activateListeners(html);
 
-    /** @override */
-    activateListeners(html: JQuery): void {
-        super.activateListeners(html);
+    //     html.on("click", '.rollable', this._onRoll.bind(this))
+    //     html.on("click", '.edit', this.onEdit.bind(this))
+    //     html.on("click", '.incdec', this.onIncDec.bind(this))
+    //     html.on("piptrack:change", ".piptrack", this.onPipTrackChange.bind(this));
 
-        html.on("click", '.rollable', this._onRoll.bind(this))
-        html.on("click", '.edit', this.onEdit.bind(this))
-        html.on("click", '.incdec', this.onIncDec.bind(this))
-        html.on("piptrack:change", ".piptrack", this.onPipTrackChange.bind(this));
+    // }
 
-    }
-
-    async handleTargetedRoll(target: number, formula: string, label: string) {
+    async #handleTargetedRoll(target: number, formula: string, label: string) {
 
         if (!Number.isFinite(target)) {
             ui.notifications?.warn("Roll target is missing or invalid.");
@@ -55,10 +56,10 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
 
     }
 
-    onPipTrackChange(event: JQuery.TriggeredEvent) {
-        const { value, name } = (
-            event.originalEvent as CustomEvent<{ value: number, name: string }>
-        ).detail;
+    static onPipTrackChange(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
+
+        const value = Number(target.dataset.value);
+        const name = target.dataset.name;
 
         if (name !== "fatigue") return;
 
@@ -66,48 +67,42 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
         this.document.update({ system: { fatigue: newValue } });
     }
 
-    onIncDec(event: JQuery.ClickEvent) {
+    static async #incDec(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
         event.preventDefault();
 
-        const element = event.currentTarget as HTMLElement | null;
-        if (!element) return;
-
-        const dataset = element.dataset;
-        const target = dataset.incdecTarget;
+        const dataset = target.dataset;
+        const incdecTarget = dataset.incdecTarget;
         const value = Number(dataset.incdec);
         if (!target || !Number.isFinite(value)) return;
 
-        if (target !== "luckPool") return;
+        if (incdecTarget !== "luckPool") return;
 
-        const current = (this.document as SystemActor<"hero">).system[target] ?? 0;
+        const current = (this.document as SystemActor<"hero">).system[incdecTarget] ?? 0;
         const newValue = Math.max(0, current + value);
-        this.document.update({ system: { [target]: newValue } });
+        this.document.update({ system: { [incdecTarget]: newValue } });
     }
 
 
-    onEdit(event: JQuery.ClickEvent) {
+    static async #edit(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
         event.preventDefault();
 
-        const element = event.currentTarget as HTMLElement | null;
-        if (!element) return;
+        const dataset = target.dataset;
 
-        const dataset = element.dataset;
+        const editTarget = dataset.editTarget;
+        if (!editTarget) return;
 
-        const target = dataset.editTarget;
-        if (!target) return;
-
-        if (target !== "hp" && target !== "mana") return;
+        if (editTarget !== "hp" && editTarget !== "mana") return;
 
         renderNumberEditor({
-            name: target,
-            value: (this.document as SystemActor<"hero">).system[target].current,
+            name: editTarget,
+            value: (this.document as SystemActor<"hero">).system[editTarget].current,
             onSubmit: async (value) => {
                 try {
                     const newValue = Math.max(0, Math.trunc(value));
-                    await this.document.update({ system: { [target]: { current: newValue } } });
+                    await this.document.update({ system: { [editTarget]: { current: newValue } } });
 
                 } catch (error) {
-                    console.error(`Error updating ${target}:`, error);
+                    console.error(`Error updating ${editTarget}:`, error);
                 }
 
             }
@@ -116,18 +111,16 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
 
     }
 
-    async _onRoll(event: JQuery.ClickEvent) {
+    static async #roll(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
         event.preventDefault();
-        const element = event.currentTarget as HTMLElement | null;
-        if (!element) return;
 
-        const dataset = element.dataset;
+        const dataset = target.dataset;
 
         const formula = dataset.rollFormula ?? "1d20";
-        const target = dataset.rollTarget;
+        const rollTarget = dataset.rollTarget;
         const label = dataset.rollLabel ?? "Roll";
 
-        if (target) await this.handleTargetedRoll(Number(target), formula, label);
+        if (rollTarget) await this.#handleTargetedRoll(Number(rollTarget), formula, label);
         else {
             const roll = new Roll(formula, this.document.getRollData());
             roll.toMessage({
@@ -135,8 +128,5 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
                 flavor: label,
             });
         }
-
-
     }
-
 }

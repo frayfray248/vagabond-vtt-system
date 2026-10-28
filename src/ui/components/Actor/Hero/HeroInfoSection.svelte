@@ -9,7 +9,7 @@
     export let sheetData: HeroSheetData;
 </script>
 
-<SheetBox class="tw:col-2 tw:row-1 tw:h-full">
+<SheetBox class="tw:col-2 tw:row-1 tw:h-full tw:text-black">
     <FlexBox direction="col" gap="1">
         <FlexBox direction="row" gap="2" className="tw:flex-1">
             <div
@@ -24,7 +24,7 @@
                 />
             </div>
             <FlexBox direction="col" gap="1" className="tw:flex-1">
-                <h1 class="tw:border-b-0 tw:mb-0">{sheetData.name}</h1>
+                <h1 class="tw:border-b-0 tw:mb-0 tw:text-black">{sheetData.name}</h1>
                 <HeroInfoGrid {sheetData} />
             </FlexBox>
         </FlexBox>

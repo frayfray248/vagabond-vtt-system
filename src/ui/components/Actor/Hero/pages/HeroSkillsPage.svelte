@@ -16,7 +16,7 @@
 
 </script>
 
-<table class="tw:table-auto w-full">
+<table class="tw:table-auto w-full tw:bg-[unset]">
     <tbody>
         {#each skills as skill}
             <tr>
@@ -48,15 +48,15 @@
                 </td>
                 <td>
                     <div
-                        class="rollable fas fa-dice tw:text-red-500 tw:cursor-pointer" data-roll-label={`Hindered ${game!.i18n!.localize(
+                        class="fas fa-dice tw:text-red-500 tw:cursor-pointer" data-action="roll" data-roll-label={`Hindered ${game!.i18n!.localize(
                         `VAGABOND.Skills.${skill.name.capitalize()}.Long`)} check`} data-roll-formula="1d20-1d6" data-roll-target={skill.value}
                     ></div>
                     <div
-                        class="rollable fas fa-dice tw:cursor-pointer" data-roll-label={`${game!.i18n!.localize(
+                        class="fas fa-dice tw:cursor-pointer" data-action="roll" data-roll-label={`${game!.i18n!.localize(
                         `VAGABOND.Skills.${skill.name.capitalize()}.Long`)} check`} data-roll-formula="1d20" data-roll-target={skill.value}
                     ></div>
                     <div
-                        class="rollable fas fa-dice tw:text-green-500 tw:cursor-pointer" data-roll-label={`Favoured ${game!.i18n!.localize(
+                        class="fas fa-dice tw:text-green-500 tw:cursor-pointer" data-action="roll" data-roll-label={`Favoured ${game!.i18n!.localize(
                         `VAGABOND.Skills.${skill.name.capitalize()}.Long`)} check`} data-roll-formula="1d20+1d6" data-roll-target={skill.value}
                     ></div>
                 </td>
