@@ -10,7 +10,8 @@ const copyFiles = [
 
 const copyDirectories = [
     "lang",
-    "templates"
+    "templates",
+    "packs"
 ]
 
 const copyFilesPlugin = {

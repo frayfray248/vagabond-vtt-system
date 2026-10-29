@@ -14,6 +14,8 @@ import InventoryItemDataModel from "./module/item/InventoryItem/model";
 import WeaponDataModel from "./module/item/InventoryItem/Weapon/model";
 import ArmorDataModel from "./module/item/InventoryItem/Armor/model";
 import AlchemicalItemDataModel from "./module/item/InventoryItem/AlchemicalItem/model";
+import { SystemItemSheet } from "./module/item/sheet";
+import { InventoryItemSheet } from "./module/item/InventoryItem/sheet";
 import { VAGABOND_VTT_SYSTEM_CONFIG } from "./config";
 import { HeroSheet } from "./module/actor/Hero/sheet";
 import "./styles/style.css";
@@ -64,6 +66,18 @@ Hooks.once("init", () => {
     });
     Actors.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, NonheroSheet, {
         types: ["nonhero"],
+        makeDefault: true,
+    });
+
+    console.log("Vagabond VTT System | Registering System Item Sheets");
+
+    const { Items } = foundry.documents.collections;
+    const { ItemSheet } = foundry.appv1.sheets;
+
+    Items.unregisterSheet("core", ItemSheet);
+    Items.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemItemSheet, { makeDefault: false });
+    Items.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, InventoryItemSheet, {
+        types: ["inventoryItem", "weapon", "armor", "alchemicalItem"],
         makeDefault: true,
     });
 

@@ -5,11 +5,7 @@ import SystemActor from "@/module/actor/document";
 import { Component } from "svelte";
 import { renderNumberEditor } from "@/lib/utils";
 
-export type HeroSheetData = {
-    name: string
-    system: HeroSystemData
-    img: string,
-}
+export type HeroSheetData = ReturnType<SystemActor<'hero'>["toPlainObject"]>
 
 export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
 

@@ -1,5 +1,6 @@
 import { HeroSystemData } from "@/module/actor/Hero/model";
 import { SystemActorSystemData } from "@/module/actor/model";
+import SystemItem from "@/module/item/document";
 
 export default class SystemActor<
 SystemActorType extends Actor.SubType = Actor.SubType,
@@ -11,6 +12,7 @@ SystemActorType extends Actor.SubType = Actor.SubType,
             system: system.toPlainObject() as ReturnType<typeof system["toPlainObject"]>,
             name: this.name,
             img: this.img,
+            inventory: this.items.filter(item => item.type === "inventoryItem").map(item => (item as unknown as SystemItem<"inventoryItem">).toPlainObject()).sort((a, b) => a.name.localeCompare(b.name))
         }
     }
 

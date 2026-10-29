@@ -2,6 +2,7 @@
     import type { HeroSheetData } from "@/module/actor/Hero/sheet";
     import Checkbox from "@/ui/components/form/Checkbox.svelte";
     import { HERO_SKILL_KEY_STAT_MAP } from "@/module/actor/Hero/model";
+    import Table from "@/ui/components/Table.svelte";
     import FlexBox from "@/ui/components/layout/FlexBox.svelte";
 
     export let sheetData: HeroSheetData;
@@ -16,10 +17,8 @@
 
 </script>
 
-<table class="tw:table-auto w-full tw:bg-[unset] tw:[&_td]:py-1">
-    <tbody>
-        {#each skills as skill}
-            <tr>
+<Table items={skills}>
+    {#snippet row(skill)}
                 <td class="tw:w-px tw:px-2">
                     <FlexBox
                         justify="center"
@@ -65,7 +64,5 @@
                         data-check-mod="favoured"
                     ></div>
                 </td>
-            </tr>
-        {/each}
-    </tbody>
-</table>
+    {/snippet}
+</Table>

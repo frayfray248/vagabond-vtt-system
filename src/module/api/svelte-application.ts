@@ -11,11 +11,11 @@ const SvelteApplicationMixin = <AppData, TBase extends ApplicationConstructor = 
         svelteApp: Component<any> | null = null;
         #mounted: Record<string, any> | null = null;
 
-        async _renderHTML(context: RenderContext & { sheetData: AppData }, options: RenderOptions) {
+        async _renderHTML(context: RenderContext & AppData, options: RenderOptions) {
             return context
         }
 
-        async _replaceHTML(result: RenderContext & { sheetData: AppData }, content: HTMLElement, options: RenderOptions) {
+        async _replaceHTML(result: RenderContext & AppData, content: HTMLElement, options: RenderOptions) {
 
             if (!this.svelteApp) return;
 
@@ -29,7 +29,7 @@ const SvelteApplicationMixin = <AppData, TBase extends ApplicationConstructor = 
             this.#mounted = mount(this.svelteApp, {
                 target: content,
                 props: {
-                    sheetData: result.sheetData
+                    sheetData: result
                 }
             })
             flushSync();
