@@ -3,6 +3,7 @@ export default class SystemItem<SubType extends Item.SubType = Item.SubType> ext
     toPlainObject() {
         const system = this.system
         return {
+            id: this.id,
             system: system.toPlainObject() as ReturnType<typeof system["toPlainObject"]>,
             name: this.name,
             img: this.img,

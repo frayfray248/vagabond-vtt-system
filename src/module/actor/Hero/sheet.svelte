@@ -11,11 +11,13 @@
     import TabRow from "@ui/components/nav/TabRow.svelte";
 
     export let sheetData: HeroSheetData;
+    export let uiState: { selectedTabIndex?: number } = {};
 
-    let selectedTabIndex = 0;
+    let selectedTabIndex = uiState.selectedTabIndex ?? 0;
 
     const handleTabChange = (index: number) => {
         selectedTabIndex = index;
+        uiState.selectedTabIndex = index;
     };
 </script>
 
@@ -26,7 +28,7 @@
     <HeroCombatPanel system={sheetData.system} />
     <HeroInfoSection sheetData={sheetData} />
     <SheetBox class="tw:col-2 tw:row-2 tw:flex tw:flex-col tw:min-h-0">
-        <div class="tw:shrink-0 tw:border-b tw:border-[#cfcfcf]"><TabRow tabs={["Skills", "Attacks", "Inventory", "Abilities", "Magic"]} onTabChange={handleTabChange} /></div>
+        <div class="tw:shrink-0 tw:border-b tw:border-[#cfcfcf]"><TabRow tabs={["Skills", "Attacks", "Inventory", "Abilities", "Magic"]} onTabChange={handleTabChange} initialIndex={selectedTabIndex} /></div>
         <div class="tw:flex-1 tw:min-h-0 tw:overflow-y-auto">
         {#if selectedTabIndex === 0}
             <HeroSkillsPage sheetData={sheetData} />

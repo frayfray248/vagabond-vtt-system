@@ -10,6 +10,8 @@ const SvelteApplicationMixin = <AppData, TBase extends ApplicationConstructor = 
         // Subclasses narrow the props type; class type parameters can't be used in an extends clause
         svelteApp: Component<any> | null = null;
         #mounted: Record<string, any> | null = null;
+        // Survives re-renders, since the Svelte component is remounted each time
+        #uiState: Record<string, any> = {};
 
         async _renderHTML(context: RenderContext & AppData, options: RenderOptions) {
             return context
@@ -29,7 +31,8 @@ const SvelteApplicationMixin = <AppData, TBase extends ApplicationConstructor = 
             this.#mounted = mount(this.svelteApp, {
                 target: content,
                 props: {
-                    sheetData: result
+                    sheetData: result,
+                    uiState: this.#uiState
                 }
             })
             flushSync();
