@@ -1,3 +1,4 @@
+import { HeroSystemData } from "@/module/actor/Hero/model";
 import { SystemActorSystemData } from "@/module/actor/model";
 
 export default class SystemActor<
@@ -16,6 +17,31 @@ SystemActorType extends Actor.SubType = Actor.SubType,
     getRollData() {
 
         return this.system.toPlainObject() as SystemActorSystemData
+    }
+
+    #getCheckFormula(checkMod?: "favoured" | "hindered") {
+        return "1d20" + (checkMod === "favoured" ? " + 1d6" : checkMod === "hindered" ? " -1d6" : "");
+    }
+
+    async rollSkillCheck(skill: string, checkMod?: "favoured" | "hindered") {
+
+        if (this.type !== "hero") return;
+        
+        const system = this.system as HeroSystemData
+        const difficulty = system.skills[skill as keyof HeroSystemData["skills"]].value
+
+        const formula = this.#getCheckFormula(checkMod)
+
+        const roll = await new Roll(formula).evaluate()
+
+        const result = roll.total ?? 0
+        const success = result > difficulty
+
+        await roll.toMessage({
+            speaker: ChatMessage.getSpeaker({ actor: this as Actor.Stored<"hero"> }),
+            flavor: `${game!.i18n?.localize(`VAGABOND.Skills.${skill.capitalize()}.Long`)} (Target: ${difficulty}): ${success ? "Success" : "Failure"}`,
+        })
+
     }
 
 }
