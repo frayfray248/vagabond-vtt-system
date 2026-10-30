@@ -12,7 +12,10 @@ export type InventoryItemSystemData = {
     slots: number;
 }
 
-export default class InventoryItemDataModel extends SystemItemDataModel<InventoryItemDataSchema, InventoryItemSystemData> {
+export default class InventoryItemDataModel<
+    Schema extends InventoryItemDataSchema = InventoryItemDataSchema,
+    SystemDataType extends InventoryItemSystemData = InventoryItemSystemData
+> extends SystemItemDataModel<Schema, SystemDataType> {
     static defineSchema(): InventoryItemDataSchema {
         return {
             ...super.defineSchema(),

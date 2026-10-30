@@ -49,13 +49,13 @@
         <th></th>
     {/snippet}
     {#snippet row(item)}
-        <td>{item.name}</td>
+        <td>
+            <a data-action="openItem" data-item-id={item.id} title="Open item sheet" class="tw:cursor-pointer">{item.name}</a>
+        </td>
         <td>{item.system.cost}</td>
         <td>{item.system.slots}</td>
         <td>
-            <Button data-action="deleteItem" data-item-id={item.id} title="Delete item">
-                <i class="fas fa-trash"></i>
-            </Button>
+                <i data-action="deleteItem" data-item-id={item.id} title="Delete item" class="fas fa-trash tw:cursor-pointer"></i>
         </td>
     {/snippet}
 </Table>

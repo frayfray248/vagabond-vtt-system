@@ -12,6 +12,7 @@ import SpellDataModel from "./module/item/Spell/model";
 import StatusDataModel from "./module/item/Status/model";
 import InventoryItemDataModel from "./module/item/InventoryItem/model";
 import WeaponDataModel from "./module/item/InventoryItem/Weapon/model";
+import { WeaponSheet } from "./module/item/InventoryItem/Weapon/sheet";
 import ArmorDataModel from "./module/item/InventoryItem/Armor/model";
 import AlchemicalItemDataModel from "./module/item/InventoryItem/AlchemicalItem/model";
 import { SystemItemSheet } from "./module/item/sheet";
@@ -77,7 +78,11 @@ Hooks.once("init", () => {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, SystemItemSheet, { makeDefault: false });
     Items.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, InventoryItemSheet, {
-        types: ["inventoryItem", "weapon", "armor", "alchemicalItem"],
+        types: ["inventoryItem", "armor", "alchemicalItem"],
+        makeDefault: true,
+    });
+    Items.registerSheet(CONFIG.VAGABOND_VTT_SYSTEM_CONFIG.NAME, WeaponSheet, {
+        types: ["weapon"],
         makeDefault: true,
     });
 

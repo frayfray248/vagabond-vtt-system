@@ -1,3 +1,10 @@
+export const INVENTORY_ITEM_TYPES = [
+    "inventoryItem",
+    "weapon",
+    "armor",
+    "alchemicalItem"
+]
+
 export default class SystemItem<SubType extends Item.SubType = Item.SubType> extends Item<SubType> {
 
     toPlainObject() {

@@ -19,8 +19,18 @@ export class HeroSheet extends SystemActorSheet<HeroSheetData, "hero"> {
             incdec: this.#incDec,
             piptrack: this.onPipTrackChange,
             deleteItem: this.#deleteItem,
+            openItem: this.#openItem,
         }
     };
+
+    static async #openItem(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
+        event.preventDefault();
+
+        const itemId = target.dataset.itemId;
+        if (!itemId) return;
+
+        await this.document.items.get(itemId)?.sheet?.render(true);
+    }
 
     static async #deleteItem(this: HeroSheet, event: PointerEvent, target: HTMLElement) {
         event.preventDefault();
