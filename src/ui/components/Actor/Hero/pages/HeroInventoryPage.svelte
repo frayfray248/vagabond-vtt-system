@@ -5,7 +5,7 @@
 
     export let sheetData: HeroSheetData;
 
-    const inventoryItems = sheetData.inventory
+    const inventoryItems = sheetData.inventory.items.concat(sheetData.inventory.weapons)
     const occupiedSlots = inventoryItems.reduce((total, item) => total + (item.system.slots ?? 0), 0)
     const maxSlots = sheetData.system.maxSlots
     const currencies = ["copper", "silver", "gold"] as const

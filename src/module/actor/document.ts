@@ -3,7 +3,7 @@ import { SystemActorSystemData } from "@/module/actor/model";
 import SystemItem, { INVENTORY_ITEM_TYPES } from "@/module/item/document";
 
 export default class SystemActor<
-SystemActorType extends Actor.SubType = Actor.SubType,
+    SystemActorType extends Actor.SubType = Actor.SubType,
 > extends Actor<SystemActorType> {
 
     toPlainObject() {
@@ -12,8 +12,12 @@ SystemActorType extends Actor.SubType = Actor.SubType,
             system: system.toPlainObject() as ReturnType<typeof system["toPlainObject"]>,
             name: this.name,
             img: this.img,
-            inventory: this.items.filter(item => INVENTORY_ITEM_TYPES.includes(item.type)
-            ).map(item => (item as unknown as SystemItem<"inventoryItem">).toPlainObject()).sort((a, b) => a.name.localeCompare(b.name))
+            inventory: {
+                items: this.items.filter(item => item.type === "inventoryItem"
+                ).map(item => (item as unknown as SystemItem<"inventoryItem">).toPlainObject()).sort((a, b) => a.name.localeCompare(b.name)),
+                weapons: this.items.filter(item => item.type === "weapon"
+                ).map(item => (item as unknown as SystemItem<"weapon">).toPlainObject()).sort((a, b) => a.name.localeCompare(b.name))
+            }
         }
     }
 
@@ -29,7 +33,7 @@ SystemActorType extends Actor.SubType = Actor.SubType,
     async rollSkillCheck(skill: string, checkMod?: "favoured" | "hindered") {
 
         if (this.type !== "hero") return;
-        
+
         const system = this.system as HeroSystemData
         const difficulty = system.skills[skill as keyof HeroSystemData["skills"]].value
 
