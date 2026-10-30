@@ -1,6 +1,6 @@
 import App from "./sheet.svelte";
 import { SystemItemSheet } from "../../sheet";
-import SystemItem from "@/module/item/document";
+import { Component } from "svelte";
 import type { WeaponSystemData } from "./model";
 
 export type WeaponSheetData = {
@@ -11,16 +11,6 @@ export type WeaponSheetData = {
 
 export class WeaponSheet extends SystemItemSheet<WeaponSheetData, "weapon"> {
 
-    constructor(data: SystemItem<"weapon">, options: ItemSheet.Options) {
-        super(data, options);
-        this.App = App;
-    }
+    svelteApp: Component<{ sheetData: WeaponSheetData }> | null = App
 
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            types: ["weapon"],
-            submitOnChange: true,
-            closeOnSubmit: false,
-        })
-    }
 }

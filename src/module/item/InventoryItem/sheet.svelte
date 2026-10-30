@@ -7,7 +7,7 @@
     export let sheetData: InventoryItemSheetData;
 </script>
 
-<div class="tw:w-full tw:box-border tw:bg-[#000000] tw:p-2">
+<div class="tw:w-full tw:box-border tw:bg-[#000000] tw:p-2 tw:text-black">
     <SheetBox class="tw:mt-2">
         <ItemHeader img={sheetData.img} name={sheetData.name} />
         <ItemProperties

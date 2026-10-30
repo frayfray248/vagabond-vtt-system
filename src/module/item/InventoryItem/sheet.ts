@@ -1,7 +1,7 @@
 import App from "./sheet.svelte";
 import { SystemItemSheet } from "../sheet";
 import { InventoryItemSystemData } from "./model";
-import SystemItem from "@/module/item/document";
+import { Component } from "svelte";
 
 export type InventoryItemSheetData = {
     name: string;
@@ -11,16 +11,6 @@ export type InventoryItemSheetData = {
 
 export class InventoryItemSheet extends SystemItemSheet<InventoryItemSheetData, "inventoryItem"> {
 
-    constructor(data: SystemItem<"inventoryItem">, options: ItemSheet.Options) {
-        super(data, options);
-        this.App = App;
-    }
+    svelteApp: Component<{ sheetData: InventoryItemSheetData }> | null = App
 
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            types: ["inventoryItem", "armor", "alchemicalItem"],
-            submitOnChange: true,
-            closeOnSubmit: false,
-        })
-    }
 }

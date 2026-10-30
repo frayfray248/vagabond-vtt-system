@@ -12,7 +12,7 @@
     ];
 </script>
 
-<h2 class="tw:mb-2 tw:text-lg tw:font-bold">Item Properties</h2>
+<h2 class="tw:mb-2 tw:text-lg tw:font-bold tw:text-black">Item Properties</h2>
 <Table items={properties}>
     {#snippet row(property)}
         <th scope="row" class="tw:w-1/4 tw:text-left">

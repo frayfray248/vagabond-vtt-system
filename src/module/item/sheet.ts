@@ -1,68 +1,46 @@
-import { Component, mount } from "svelte";
 import SystemItem from "./document";
+import { DeepPartial } from "fvtt-types/utils";
+import SvelteApplicationMixin from "@/module/api/svelte-application";
+
+const ItemSheetV2 = foundry.applications.sheets.ItemSheetV2
+type RenderOptions = foundry.applications.api.ApplicationV2.RenderOptions;
+type RenderContext = foundry.applications.sheets.ItemSheetV2.RenderContext;
 
 export class SystemItemSheet<
     SheetData,
     SubType extends Item.SubType = Item.SubType,
-> extends foundry.appv1.sheets.ItemSheet {
+> extends SvelteApplicationMixin(ItemSheetV2) {
 
-    App: Component<{ sheetData: SheetData }> | null
-
-    constructor(data: SystemItem<SubType>, options: ItemSheet.Options) {
-        super(data, options);
-        this.App = null;
-    }
-
-    static get defaultOptions() {
-        return foundry.utils.mergeObject(super.defaultOptions, {
-            template: "systems/vagabond-vtt-system/templates/sheet.hbs",
-            height: 400,
+    static DEFAULT_OPTIONS = {
+        tag: "form",
+        form: {
+            submitOnChange: true,
+            closeOnSubmit: false
+        },
+        position: {
             width: 500,
+            height: 400,
+        },
+        window: {
             resizable: true,
-        })
+        }
     }
 
-    getDocument(): SystemItem<SubType> {
-        return this.document as SystemItem<SubType>;
+    get document() {
+        return this.options.document
     }
 
-    getData(): ReturnType<SystemItem<SubType>["toPlainObject"]> {
-        const item = this.getDocument();
+    override async _prepareContext(options: DeepPartial<RenderOptions> & { isFirstRender: boolean }): Promise<RenderContext> {
 
-        return item.toPlainObject() as ReturnType<SystemItem<SubType>["toPlainObject"]>;
-    }
+        const context = (await super._prepareContext(options)) as RenderContext & SheetData;
+        const item = this.document as unknown as SystemItem<SubType>;
 
-    protected mountApp(html: JQuery) {
+        foundry.utils.mergeObject(
+            context,
+            item.toPlainObject()
+        )
 
-        if (!this.App) return;
-
-        html.find(".window-content")
-        .css({ padding: 0, background: "#000000" })
-
-        mount(this.App, {
-            target: html.find("form")[0],
-            props: {
-                sheetData: this.getData() as SheetData,
-            }
-        })
-
-    }
-
-    async _injectHTML(html: JQuery) {
-        // html here is the whole sheet window
-
-        super._injectHTML(html);
-        this.mountApp(html);
-
-    }
-
-    async _replaceHTML(element: JQuery, html: JQuery) {
-        // html here is just the handlebars template content for some reason.
-        // element is the whole sheet window
-
-        super._replaceHTML(element, html);
-        this.mountApp(element);
-
+        return context;
     }
 
 }

@@ -13,7 +13,7 @@
     const weaponProperties = ["types", "properties", "range", "grip", "damage"];
 </script>
 
-<div class="tw:w-full tw:box-border tw:bg-[#000000] tw:p-2">
+<div class="tw:w-full tw:box-border tw:bg-[#000000] tw:p-2 tw:text-black">
     <SheetBox class="tw:mt-2">
         <ItemHeader img={sheetData.img} name={sheetData.name} />
 
@@ -23,7 +23,7 @@
                 slots={sheetData.system.slots}
             />
         </div>
-        <h2 class="tw:mb-2 tw:text-lg tw:font-bold">Weapon Properties</h2>
+        <h2 class="tw:mb-2 tw:text-lg tw:font-bold tw:text-black">Weapon Properties</h2>
         <Table items={weaponProperties}>
             {#snippet row(property)}
                 {#if property === "types"}
@@ -76,7 +76,7 @@
                         <select
                             id="weapon-range"
                             name="system.range"
-                            class="tw:w-full tw:text-xs tw:text-black"
+                            class="tw:w-full tw:text-xs"
                         >
                             {#each Object.values(WEAPON_RANGE) as range}
                                 <option
@@ -95,7 +95,7 @@
                         <select
                             id="weapon-grip"
                             name="system.grip"
-                            class="tw:w-full tw:text-xs tw:text-black"
+                            class="tw:w-full tw:text-xs"
                         >
                             {#each Object.values(WEAPON_GRIP) as grip}
                                 <option
