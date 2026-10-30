@@ -64,6 +64,12 @@ export interface ManaDataSchema extends foundry.data.fields.DataSchema {
 }
 
 
+export interface WealthDataSchema extends foundry.data.fields.DataSchema {
+    copper: InstanceType<typeof NumberField<{}, {}, number>>;
+    silver: InstanceType<typeof NumberField<{}, {}, number>>;
+    gold: InstanceType<typeof NumberField<{}, {}, number>>;
+}
+
 export interface HeroDataSchema extends SystemActorDataSchema {
     level: InstanceType<typeof NumberField<{}, {}, number>>;
     xp: InstanceType<typeof NumberField<{}, {}, number>>;
@@ -77,6 +83,7 @@ export interface HeroDataSchema extends SystemActorDataSchema {
     maxSlots: InstanceType<typeof NumberField<{}, {}, number>>;
     castingMax: InstanceType<typeof NumberField<{}, {}, number>>;
     luckPool: InstanceType<typeof NumberField<{}, {}, number>>;
+    wealth: InstanceType<typeof SchemaField<WealthDataSchema>>;
 }
 
 export interface HeroSystemData extends SystemActorSystemData {
@@ -102,6 +109,11 @@ export interface HeroSystemData extends SystemActorSystemData {
     maxSlots: number;
     castingMax: number | null;
     luckPool: number;
+    wealth: {
+        copper: number;
+        silver: number;
+        gold: number;
+    };
 }
 
 export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, HeroSystemData> {
@@ -175,6 +187,11 @@ export default class HeroDataModel extends SystemActorDataModel<HeroDataSchema, 
                 required: true,
                 initial: 0,
                 min: 0,
+            }),
+            wealth: new SchemaField<WealthDataSchema>({
+                copper: new NumberField({ required: true, initial: 0, min: 0 }),
+                silver: new NumberField({ required: true, initial: 0, min: 0 }),
+                gold: new NumberField({ required: true, initial: 0, min: 0 }),
             }),
         }
     }

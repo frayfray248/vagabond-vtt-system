@@ -1,15 +1,10 @@
 <script lang="ts">
     import SheetBox from "@ui/components/SheetBox.svelte";
     import FlexBox from "@ui/components/layout/FlexBox.svelte";
-    import KeyValueList from "@ui/components/KeyValueList.svelte";
+    import Input from "@ui/components/form/Input.svelte";
     import type { InventoryItemSheetData } from "./sheet";
 
     export let sheetData: InventoryItemSheetData;
-
-    $: rows = [
-        { label: "Cost", value: sheetData.system.cost },
-        { label: "Slots", value: sheetData.system.slots },
-    ];
 </script>
 
 <div class="tw:w-full tw:box-border tw:bg-[#000000] tw:p-2">
@@ -24,8 +19,17 @@
                 />
             </div>
             <FlexBox direction="col" gap="1" className="tw:flex-1">
-                <h1 class="tw:border-b-0 tw:mb-0">{sheetData.name}</h1>
-                <KeyValueList {rows} />
+                <input
+                    name="name"
+                    class="tw:text-2xl tw:font-bold tw:text-black tw:m-0 tw:p-0 tw:h-auto tw:rounded-none tw:border-none tw:bg-transparent tw:shadow-none tw:hover:bg-gray-300"
+                    type="text"
+                    value={sheetData.name}
+                    placeholder="Item name"
+                />
+                <FlexBox direction="row" gap="2">
+                    <Input name="system.cost" label="Cost" type="number" value={sheetData.system.cost} placeholder="0" />
+                    <Input name="system.slots" label="Slots" type="number" value={sheetData.system.slots} placeholder="0" />
+                </FlexBox>
             </FlexBox>
         </FlexBox>
     </SheetBox>

@@ -19,6 +19,8 @@ export class InventoryItemSheet extends SystemItemSheet<InventoryItemSheetData, 
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             types: ["inventoryItem", "weapon", "armor", "alchemicalItem"],
+            submitOnChange: true,
+            closeOnSubmit: false,
         })
     }
 }
