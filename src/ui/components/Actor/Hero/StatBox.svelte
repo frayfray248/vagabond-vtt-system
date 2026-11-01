@@ -16,7 +16,7 @@
             type="number"
             name={`system.stats.${name}`}
             {value}
-            class="tw:hover:bg-gray-300 tw:m-0 tw:font-bold tw:p-0 tw:h-full tw:rounded-none tw:border-none tw:bg-transparent tw:shadow-none tw:text-2xl"
+            class="tw:hover:bg-gray-300 tw:text-center tw:text-black tw:m-0 tw:font-bold tw:p-0 tw:h-full tw:rounded-none tw:border-none tw:bg-transparent tw:shadow-none tw:text-2xl"
         />
     </div>
 </div>

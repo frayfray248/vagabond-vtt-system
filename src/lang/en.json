@@ -1,5 +1,19 @@
 {
     "VAGABOND": {
+        "Wealth": {
+            "Copper": {
+                "Short": "c",
+                "Long": "Copper"
+            },
+            "Silver": {
+                "Short": "s",
+                "Long": "Silver"
+            },
+            "Gold": {
+                "Short": "g",
+                "Long": "Gold"
+            }
+        },
         "Stats": {
             "Might": {
                 "Short": "MIT",

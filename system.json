@@ -46,7 +46,15 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
+  "packs": [
+    {
+        "name": "items",
+        "label": "Items",
+        "type": "Item",
+        "system": "vagabond-vtt-system",
+        "path": "packs/items"
+    }
+  ],
   "packFolders": [],
   "socket": false,
   "background": "systems/vagabond-vtt-system/assets/anvil-impact.png"

@@ -13,7 +13,7 @@
     <input
         id={name}
         {name}
-        class="tw:text-xs tw:hover:bg-gray-300 tw:m-0 tw:font-bold tw:p-0 tw:h-full tw:rounded-none tw:border-none tw:bg-transparent tw:shadow-none"
+        class="tw:text-xs tw:text-black tw:hover:bg-gray-300 tw:m-0 tw:font-bold tw:p-0 tw:h-full tw:rounded-none tw:border-none tw:bg-transparent tw:shadow-none"
         {type}
         {placeholder}
         {value}

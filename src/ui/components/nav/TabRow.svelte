@@ -3,8 +3,9 @@
 
     export let tabs: string[] = [];
     export let onTabChange: (index: number) => void = () => {};
+    export let initialIndex: number = 0;
 
-    let selectedTabIndex = 0;
+    let selectedTabIndex = initialIndex;
 
     const handleTabClick = (index: number) => {
         selectedTabIndex = index;

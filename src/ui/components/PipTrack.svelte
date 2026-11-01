@@ -16,17 +16,15 @@
         if (nextValue === value) return;
 
         value = nextValue;
-
-        root.dispatchEvent(new CustomEvent("piptrack:change", {
-            bubbles: true,
-            detail: { value, name }
-        }));
     };
 </script>
 
 <div
     bind:this={root}
-    class="piptrack tw:mt-1.5 tw:flex tw:items-center tw:gap-1.5"
+    class="tw:mt-1.5 tw:flex tw:items-center tw:gap-1.5"
+    data-action="piptrack"
+    data-name={name}
+    data-value={value}
 >
     {#each Array(max) as _, index}
         <span
